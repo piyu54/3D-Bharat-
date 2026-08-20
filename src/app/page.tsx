@@ -1,6 +1,7 @@
 "use client";
 
 import DashboardShell from "@/components/layout/DashboardShell";
+import InvestmentGrowthChart from "@/components/dashboard/InvestmentGrowthChart";
 import { useDeals } from "@/hooks/useDeals";
 
 export default function Home() {
@@ -15,6 +16,7 @@ export default function Home() {
 
       <div className="p-6 lg:p-8 max-w-[1600px] mx-auto">
 
+        {/* Page Header */}
         <div className="mb-8">
 
           <p className="text-sm text-cyan-400 mb-2">
@@ -31,9 +33,12 @@ export default function Home() {
 
         </div>
 
+        {/* Summary Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
 
+          {/* Total Investments */}
           <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
+
             <p className="text-sm text-slate-400">
               Total Investments
             </p>
@@ -45,9 +50,12 @@ export default function Home() {
             <p className="text-xs text-emerald-400 mt-2">
               +12.4% this year
             </p>
+
           </div>
 
+          {/* Active Deals */}
           <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
+
             <p className="text-sm text-slate-400">
               Active Deals
             </p>
@@ -59,9 +67,12 @@ export default function Home() {
             <p className="text-xs text-slate-500 mt-2">
               Opportunities available
             </p>
+
           </div>
 
+          {/* Portfolio ROI */}
           <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
+
             <p className="text-sm text-slate-400">
               Portfolio ROI
             </p>
@@ -73,9 +84,12 @@ export default function Home() {
             <p className="text-xs text-emerald-400 mt-2">
               +4.8% vs last quarter
             </p>
+
           </div>
 
+          {/* Portfolio Risk */}
           <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
+
             <p className="text-sm text-slate-400">
               Portfolio Risk
             </p>
@@ -87,40 +101,24 @@ export default function Home() {
             <p className="text-xs text-amber-400 mt-2">
               Balanced exposure
             </p>
+
           </div>
 
         </div>
 
+        {/* Analytics Section */}
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 mt-4">
 
-          <div className="xl:col-span-2 rounded-xl border border-slate-800 bg-slate-900 p-6 min-h-[320px]">
+          {/* Investment Growth Chart */}
+          <div className="xl:col-span-2">
 
-            <div className="flex items-center justify-between mb-6">
-
-              <div>
-                <h2 className="font-semibold">
-                  Investment Growth
-                </h2>
-
-                <p className="text-xs text-slate-500 mt-1">
-                  Portfolio value over the last 12 months
-                </p>
-              </div>
-
-              <span className="text-xs text-emerald-400">
-                +18.6%
-              </span>
-
-            </div>
-
-            <div className="h-52 flex items-center justify-center border border-dashed border-slate-800 rounded-lg">
-              <span className="text-sm text-slate-600">
-                Investment growth chart — coming next
-              </span>
-            </div>
+            <InvestmentGrowthChart
+              deals={deals}
+            />
 
           </div>
 
+          {/* Industry Distribution */}
           <div className="rounded-xl border border-slate-800 bg-slate-900 p-6 min-h-[320px]">
 
             <h2 className="font-semibold">
@@ -132,22 +130,27 @@ export default function Home() {
             </p>
 
             <div className="h-52 flex items-center justify-center border border-dashed border-slate-800 rounded-lg mt-6">
+
               <span className="text-sm text-slate-600">
                 Industry chart — coming next
               </span>
+
             </div>
 
           </div>
 
         </div>
 
+        {/* Recommended Opportunities */}
         <div className="mt-4 rounded-xl border border-slate-800 bg-slate-900">
 
+          {/* Section Header */}
           <div className="p-6 border-b border-slate-800">
 
             <div className="flex items-center justify-between">
 
               <div>
+
                 <h2 className="font-semibold">
                   Recommended Opportunities
                 </h2>
@@ -155,9 +158,12 @@ export default function Home() {
                 <p className="text-xs text-slate-500 mt-1">
                   Deals selected based on your investment profile
                 </p>
+
               </div>
 
-              <button className="text-sm text-cyan-400 hover:text-cyan-300">
+              <button
+                className="text-sm text-cyan-400 hover:text-cyan-300 transition"
+              >
                 View all →
               </button>
 
@@ -165,6 +171,7 @@ export default function Home() {
 
           </div>
 
+          {/* Deal List */}
           <div className="divide-y divide-slate-800">
 
             {deals.slice(0, 5).map((deal) => (
@@ -174,6 +181,7 @@ export default function Home() {
                 className="p-5 flex items-center justify-between gap-4 hover:bg-slate-800/40 transition"
               >
 
+                {/* Company Information */}
                 <div className="min-w-0">
 
                   <h3 className="font-medium truncate">
@@ -186,6 +194,7 @@ export default function Home() {
 
                 </div>
 
+                {/* ROI */}
                 <div className="text-right shrink-0">
 
                   <p className="font-semibold text-emerald-400">
