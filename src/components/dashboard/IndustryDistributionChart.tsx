@@ -34,6 +34,7 @@ export default function IndustryDistributionChart({
     <div className="rounded-xl border border-slate-800 bg-slate-900 p-6">
 
       <div className="mb-4">
+
         <h2 className="font-semibold text-white">
           Industry Distribution
         </h2>
@@ -41,6 +42,7 @@ export default function IndustryDistributionChart({
         <p className="text-xs text-slate-500 mt-1">
           Deal opportunities by industry
         </p>
+
       </div>
 
       <div className="h-[230px] w-full">
@@ -49,6 +51,7 @@ export default function IndustryDistributionChart({
           width="100%"
           height="100%"
         >
+
           <PieChart>
 
             <Pie
@@ -62,6 +65,7 @@ export default function IndustryDistributionChart({
               paddingAngle={3}
               stroke="none"
             >
+
               {data.map((entry, index) => (
                 <Cell
                   key={`${entry.industry}-${index}`}
@@ -72,6 +76,7 @@ export default function IndustryDistributionChart({
                   }
                 />
               ))}
+
             </Pie>
 
             <Tooltip
@@ -89,6 +94,7 @@ export default function IndustryDistributionChart({
             />
 
           </PieChart>
+
         </ResponsiveContainer>
 
       </div>

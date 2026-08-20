@@ -2,6 +2,9 @@
 
 import DashboardShell from "@/components/layout/DashboardShell";
 import InvestmentGrowthChart from "@/components/dashboard/InvestmentGrowthChart";
+import IndustryDistributionChart from "@/components/dashboard/IndustryDistributionChart";
+import RiskDistributionChart from "@/components/dashboard/RiskDistributionChart";
+import RiskVsROIChart from "@/components/dashboard/RiskVsROIChart";
 import { useDeals } from "@/hooks/useDeals";
 
 export default function Home() {
@@ -119,27 +122,20 @@ export default function Home() {
           </div>
 
           {/* Industry Distribution */}
-          <div className="rounded-xl border border-slate-800 bg-slate-900 p-6 min-h-[320px]">
-
-            <h2 className="font-semibold">
-              Industry Distribution
-            </h2>
-
-            <p className="text-xs text-slate-500 mt-1">
-              Current portfolio allocation
-            </p>
-
-            <div className="h-52 flex items-center justify-center border border-dashed border-slate-800 rounded-lg mt-6">
-
-              <span className="text-sm text-slate-600">
-                Industry chart — coming next
-              </span>
-
-            </div>
-
+          
+          <div>
+            <IndustryDistributionChart deals={deals} />
           </div>
-
         </div>
+
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 mt-4">
+
+          <RiskDistributionChart deals={deals} />
+
+          <RiskVsROIChart deals={deals} />
+
+</div>
+
 
         {/* Recommended Opportunities */}
         <div className="mt-4 rounded-xl border border-slate-800 bg-slate-900">

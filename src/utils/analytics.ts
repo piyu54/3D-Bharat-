@@ -1,8 +1,6 @@
 import type { Deal } from "@/types/deal";
 
-export const calculateInvestmentGrowth = (
-  deals: Deal[]
-) => {
+export const calculateInvestmentGrowth = (deals: Deal[]) => {
   const months = [
     "Sep",
     "Oct",
@@ -27,16 +25,12 @@ export const calculateInvestmentGrowth = (
 
     return {
       month,
-      value: Number(
-        (baseValue + growth).toFixed(2)
-      ),
+      value: Number((baseValue + growth).toFixed(2)),
     };
   });
 };
 
-export const calculateIndustryDistribution = (
-  deals: Deal[]
-) => {
+export const calculateIndustryDistribution = (deals: Deal[]) => {
   const distribution: Record<string, number> = {};
 
   deals.forEach((deal) => {
@@ -52,9 +46,7 @@ export const calculateIndustryDistribution = (
     .sort((a, b) => b.count - a.count);
 };
 
-export const calculateRiskDistribution = (
-  deals: Deal[]
-) => {
+export const calculateRiskDistribution = (deals: Deal[]) => {
   const distribution: Record<string, number> = {};
 
   deals.forEach((deal) => {
@@ -70,9 +62,7 @@ export const calculateRiskDistribution = (
   );
 };
 
-export const calculateRiskVsROI = (
-  deals: Deal[]
-) => {
+export const calculateRiskVsROI = (deals: Deal[]) => {
   return deals.map((deal) => ({
     company: deal.companyName,
     risk: deal.riskLevel,
