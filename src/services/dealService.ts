@@ -49,6 +49,8 @@ const simulateDelay = () => {
   });
 };
 
+
+
 export const getDeals = async ({
   filters = {},
   sortBy = "newest",
@@ -204,4 +206,18 @@ export const getDeals = async ({
     pageSize,
     totalPages,
   };
+};
+
+export const getDealById = async (
+  id: string
+): Promise<Deal | null> => {
+  await simulateDelay();
+
+  simulateServiceError();
+
+  const deal = deals.find(
+    (item) => item.id === id
+  );
+
+  return deal ?? null;
 };

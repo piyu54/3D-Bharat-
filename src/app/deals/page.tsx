@@ -1,10 +1,11 @@
 "use client";
 
+import DealFilters from "@/components/deals/DealFilters";
 import DashboardShell from "@/components/layout/DashboardShell";
 import { useDealExplorer } from "@/hooks/useDealExplorer";
 
 export default function DealsPage() {
- const {
+const {
   deals,
   total,
   page,
@@ -14,6 +15,10 @@ export default function DealsPage() {
   retry,
   filters,
   updateFilter,
+  clearFilters,
+  sortBy,
+  changeSort,
+  changePage,
 } = useDealExplorer({
   pageSize: 10,
 });
@@ -75,22 +80,80 @@ export default function DealsPage() {
 
         </div>
 
-        {/* Results Summary */}
-        <div className="flex items-center justify-between mb-4">
-
-          <p className="text-sm text-slate-400">
-
-            {status === "loading"
-              ? "Loading opportunities..."
-              : `${total} opportunities found`}
-
-          </p>
-
-          <p className="text-xs text-slate-500">
-            Page {page} of {totalPages || 1}
-          </p>
-
+        <div className="mb-6">
+        <DealFilters
+        filters={filters}
+        updateFilter={updateFilter}
+        clearFilters={clearFilters}
+        />
         </div>
+
+        {/* Results Summary + Sorting */}
+<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+
+  <div>
+    <p className="text-sm text-slate-400">
+      {status === "loading"
+        ? "Loading opportunities..."
+        : `${total} opportunities found`}
+    </p>
+
+    {total > 0 && (
+      <p className="text-xs text-slate-600 mt-1">
+        Showing {(page - 1) * 10 + 1}–
+        {Math.min(page * 10, total)} opportunities
+      </p>
+    )}
+  </div>
+
+  <div className="flex items-center gap-3">
+
+    <label
+      htmlFor="deal-sort"
+      className="text-xs text-slate-500"
+    >
+      Sort by
+    </label>
+
+    <select
+      id="deal-sort"
+      value={sortBy}
+      onChange={(event) =>
+        changeSort(
+          event.target.value as typeof sortBy
+        )
+      }
+      className="rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-white outline-none focus:border-cyan-500"
+    >
+      <option value="newest">
+        Newest
+      </option>
+
+      <option value="oldest">
+        Oldest
+      </option>
+
+      <option value="roi-high">
+        ROI: High to Low
+      </option>
+
+      <option value="roi-low">
+        ROI: Low to High
+      </option>
+
+      <option value="investment-high">
+        Investment: High to Low
+      </option>
+
+      <option value="investment-low">
+        Investment: Low to High
+      </option>
+    </select>
+
+  </div>
+
+</div>
+       
 
         {/* Error State */}
         {status === "error" && (
@@ -239,22 +302,26 @@ export default function DealsPage() {
           <div className="flex items-center justify-center gap-2 mt-6">
 
             <button
-              disabled={page <= 1}
-              className="rounded-lg border border-slate-800 bg-slate-900 px-4 py-2 text-sm text-slate-400 disabled:opacity-40"
-            >
-              Previous
-            </button>
+  type="button"
+  onClick={() => changePage(page - 1)}
+  disabled={page <= 1}
+  className="rounded-lg border border-slate-800 bg-slate-900 px-4 py-2 text-sm text-slate-400 transition hover:border-slate-700 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+>
+  Previous
+</button>
 
             <span className="px-4 text-sm text-slate-500">
               {page} / {totalPages}
             </span>
 
             <button
-              disabled={page >= totalPages}
-              className="rounded-lg border border-slate-800 bg-slate-900 px-4 py-2 text-sm text-slate-400 disabled:opacity-40"
-            >
-              Next
-            </button>
+  type="button"
+  onClick={() => changePage(page + 1)}
+  disabled={page >= totalPages}
+  className="rounded-lg border border-slate-800 bg-slate-900 px-4 py-2 text-sm text-slate-400 transition hover:border-slate-700 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+>
+  Next
+</button>
 
           </div>
 

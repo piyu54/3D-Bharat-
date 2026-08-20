@@ -5,10 +5,12 @@ import type { RiskLevel } from "@/types/deal";
 
 interface DealFiltersProps {
   filters: DealFilterValues;
+
   updateFilter: <K extends keyof DealFilterValues>(
     key: K,
     value: DealFilterValues[K]
   ) => void;
+
   clearFilters: () => void;
 }
 
@@ -55,10 +57,11 @@ export default function DealFilters({
   return (
     <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
 
+      {/* Header */}
       <div className="flex items-center justify-between mb-5">
 
         <div>
-          <h2 className="font-semibold">
+          <h2 className="font-semibold text-white">
             Filter Opportunities
           </h2>
 
@@ -77,6 +80,7 @@ export default function DealFilters({
 
       </div>
 
+      {/* Select Filters */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
 
         {/* Industry */}
