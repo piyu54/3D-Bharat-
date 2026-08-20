@@ -1,0 +1,237 @@
+[
+  {
+    "id": "INV-001",
+    "name": "Arjun Mehta",
+    "company": "Elevate Capital",
+    "type": "Individual",
+    "location": "Delhi, India",
+    "investmentCapacity": 107426608,
+    "preferredIndustries": [
+      "FinTech",
+      "HealthTech"
+    ],
+    "riskPreference": "High",
+    "minimumTicket": 1357955,
+    "maximumTicket": 44686577
+  },
+  {
+    "id": "INV-002",
+    "name": "Riya Sharma",
+    "company": "Verma Ventures",
+    "type": "Angel Investor",
+    "location": "Bengaluru, India",
+    "investmentCapacity": 170286115,
+    "preferredIndustries": [
+      "AI & ML",
+      "CleanTech",
+      "AgriTech"
+    ],
+    "riskPreference": "Medium",
+    "minimumTicket": 4495525,
+    "maximumTicket": 16533240
+  },
+  {
+    "id": "INV-003",
+    "name": "Karan Patel",
+    "company": "Elevate Capital",
+    "type": "Corporate Investor",
+    "location": "Ahmedabad, India",
+    "investmentCapacity": 148852673,
+    "preferredIndustries": [
+      "Aerospace",
+      "Robotics",
+      "EV & Mobility"
+    ],
+    "riskPreference": "Low",
+    "minimumTicket": 3937450,
+    "maximumTicket": 31165186
+  },
+  {
+    "id": "INV-004",
+    "name": "Neha Kapoor",
+    "company": "Sharma Ventures",
+    "type": "Angel Investor",
+    "location": "Hyderabad, India",
+    "investmentCapacity": 112623216,
+    "preferredIndustries": [
+      "AgriTech",
+      "Semiconductors",
+      "EV & Mobility"
+    ],
+    "riskPreference": "High",
+    "minimumTicket": 3899837,
+    "maximumTicket": 48132879
+  },
+  {
+    "id": "INV-005",
+    "name": "Rahul Verma",
+    "company": "Vertex Capital",
+    "type": "Individual",
+    "location": "Chennai, India",
+    "investmentCapacity": 65741413,
+    "preferredIndustries": [
+      "AI & ML",
+      "Cybersecurity"
+    ],
+    "riskPreference": "Medium",
+    "minimumTicket": 770774,
+    "maximumTicket": 46579426
+  },
+  {
+    "id": "INV-006",
+    "name": "Ananya Iyer",
+    "company": "Rao Ventures",
+    "type": "Corporate Investor",
+    "location": "Ahmedabad, India",
+    "investmentCapacity": 144346735,
+    "preferredIndustries": [
+      "Robotics",
+      "AgriTech",
+      "EdTech"
+    ],
+    "riskPreference": "High",
+    "minimumTicket": 2049345,
+    "maximumTicket": 25912890
+  },
+  {
+    "id": "INV-007",
+    "name": "Aditya Shah",
+    "company": "Horizon Capital",
+    "type": "Angel Investor",
+    "location": "Pune, India",
+    "investmentCapacity": 36526894,
+    "preferredIndustries": [
+      "AI & ML",
+      "Aerospace",
+      "Semiconductors"
+    ],
+    "riskPreference": "Low",
+    "minimumTicket": 2148044,
+    "maximumTicket": 9608293
+  },
+  {
+    "id": "INV-008",
+    "name": "Meera Joshi",
+    "company": "Mehta Ventures",
+    "type": "VC Fund",
+    "location": "Delhi, India",
+    "investmentCapacity": 237286467,
+    "preferredIndustries": [
+      "FinTech",
+      "EV & Mobility",
+      "HealthTech"
+    ],
+    "riskPreference": "Low",
+    "minimumTicket": 2363832,
+    "maximumTicket": 31585758
+  },
+  {
+    "id": "INV-009",
+    "name": "Vikram Rao",
+    "company": "Horizon Capital",
+    "type": "VC Fund",
+    "location": "Delhi, India",
+    "investmentCapacity": 162986781,
+    "preferredIndustries": [
+      "EV & Mobility",
+      "Semiconductors",
+      "Aerospace"
+    ],
+    "riskPreference": "High",
+    "minimumTicket": 1973107,
+    "maximumTicket": 31918812
+  },
+  {
+    "id": "INV-010",
+    "name": "Sneha Kulkarni",
+    "company": "Patel Ventures",
+    "type": "Angel Investor",
+    "location": "Bengaluru, India",
+    "investmentCapacity": 32672443,
+    "preferredIndustries": [
+      "AI & ML",
+      "Aerospace",
+      "HealthTech"
+    ],
+    "riskPreference": "Medium",
+    "minimumTicket": 1949226,
+    "maximumTicket": 9648749
+  },
+  {
+    "id": "INV-011",
+    "name": "Aman Gupta",
+    "company": "Pioneer Capital",
+    "type": "Individual",
+    "location": "Gurugram, India",
+    "investmentCapacity": 225104272,
+    "preferredIndustries": [
+      "SaaS",
+      "FinTech",
+      "HealthTech"
+    ],
+    "riskPreference": "High",
+    "minimumTicket": 4021636,
+    "maximumTicket": 7901922
+  },
+  {
+    "id": "INV-012",
+    "name": "Ishita Singh",
+    "company": "Sharma Ventures",
+    "type": "VC Fund",
+    "location": "Gurugram, India",
+    "investmentCapacity": 156562822,
+    "preferredIndustries": [
+      "EV & Mobility",
+      "HealthTech"
+    ],
+    "riskPreference": "Low",
+    "minimumTicket": 4462738,
+    "maximumTicket": 37555214
+  },
+  {
+    "id": "INV-013",
+    "name": "Rohan Malhotra",
+    "company": "Pioneer Capital",
+    "type": "Angel Investor",
+    "location": "Mumbai, India",
+    "investmentCapacity": 231771839,
+    "preferredIndustries": [
+      "Semiconductors",
+      "FinTech"
+    ],
+    "riskPreference": "Medium",
+    "minimumTicket": 2121602,
+    "maximumTicket": 5833526
+  },
+  {
+    "id": "INV-014",
+    "name": "Pooja Nair",
+    "company": "Patel Ventures",
+    "type": "Individual",
+    "location": "Delhi, India",
+    "investmentCapacity": 132549859,
+    "preferredIndustries": [
+      "Aerospace",
+      "EV & Mobility"
+    ],
+    "riskPreference": "Medium",
+    "minimumTicket": 2739084,
+    "maximumTicket": 16912305
+  },
+  {
+    "id": "INV-015",
+    "name": "Dev Khanna",
+    "company": "Pioneer Capital",
+    "type": "Corporate Investor",
+    "location": "Bengaluru, India",
+    "investmentCapacity": 202012296,
+    "preferredIndustries": [
+      "Semiconductors",
+      "SaaS",
+      "CleanTech"
+    ],
+    "riskPreference": "High",
+    "minimumTicket": 1956001,
+    "maximumTicket": 29068586
+  }
+]
