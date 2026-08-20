@@ -4,17 +4,19 @@ import DashboardShell from "@/components/layout/DashboardShell";
 import { useDealExplorer } from "@/hooks/useDealExplorer";
 
 export default function DealsPage() {
-  const {
-    deals,
-    total,
-    page,
-    totalPages,
-    status,
-    error,
-    retry,
-  } = useDealExplorer({
-    pageSize: 10,
-  });
+ const {
+  deals,
+  total,
+  page,
+  totalPages,
+  status,
+  error,
+  retry,
+  filters,
+  updateFilter,
+} = useDealExplorer({
+  pageSize: 10,
+});
 
   return (
     <DashboardShell>
@@ -44,10 +46,14 @@ export default function DealsPage() {
           <div className="relative">
 
             <input
-              type="text"
-              placeholder="Search companies, industries, locations..."
-              className="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3 pl-11 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-500"
-            />
+          type="text"
+          value={filters.search ?? ""}
+          onChange={(event) =>
+           updateFilter("search", event.target.value)
+           }
+          placeholder="Search companies, industries, locations..."
+          className="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3 pl-11 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-500"
+          />
 
             <svg
               className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500"

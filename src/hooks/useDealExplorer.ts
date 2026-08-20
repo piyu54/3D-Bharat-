@@ -24,12 +24,39 @@ interface UseDealExplorerOptions {
   pageSize?: number;
 }
 
+function useDebounce<T>(
+  value: T,
+  delay: number
+) {
+  const [debouncedValue, setDebouncedValue] =
+    useState(value);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+}
+
 export function useDealExplorer(
   options: UseDealExplorerOptions = {}
 ) {
   const pageSize = options.pageSize ?? 10;
 
-  const [filters, setFilters] = useState<DealFilters>({});
+  const [filters, setFilters] =
+    useState<DealFilters>({});
+
+  const debouncedSearch = useDebounce(
+    filters.search ?? "",
+    400
+  );
+
   const [sortBy, setSortBy] =
     useState<DealSortOption>("newest");
 
@@ -54,7 +81,10 @@ export function useDealExplorer(
 
     try {
       const response = await getDeals({
-        filters,
+        filters: {
+          ...filters,
+          search: debouncedSearch,
+        },
         sortBy,
         page,
         pageSize,
@@ -71,7 +101,10 @@ export function useDealExplorer(
         return;
       }
 
-      console.error("Failed to load deals:", err);
+      console.error(
+        "Failed to load deals:",
+        err
+      );
 
       setResult(null);
       setStatus("error");
@@ -82,6 +115,7 @@ export function useDealExplorer(
     }
   }, [
     filters,
+    debouncedSearch,
     sortBy,
     page,
     pageSize,
@@ -145,9 +179,11 @@ export function useDealExplorer(
 
     page: result?.page ?? page,
 
-    pageSize: result?.pageSize ?? pageSize,
+    pageSize:
+      result?.pageSize ?? pageSize,
 
-    totalPages: result?.totalPages ?? 0,
+    totalPages:
+      result?.totalPages ?? 0,
 
     filters,
 
