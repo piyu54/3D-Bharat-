@@ -14,7 +14,11 @@ https://3d-bharat-investor-dashboard-dun.vercel.app/
 **GitHub:**
 https://github.com/piyu54/3D-Bharat-
 
----
+## Demo Video
+
+Here is a short video demonstrating the main features and functionality of the 3D Bharat Investor & Corporate Dashboard.
+
+[▶️ Watch Project Demo](https://drive.google.com/file/d/15Qdl8QHBwj9U931QNTzhG_KGxaJvtZGu/view?usp=sharing)
 
 ## Project Overview
 
