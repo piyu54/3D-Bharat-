@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 3D Bharat Investor & Corporate Dashboard
 
-## Getting Started
+A modern full-stack style investment dashboard built with **Next.js, TypeScript, Redux Toolkit and Recharts**.
 
-First, run the development server:
+This project was created as part of a Full Stack Developer task for **3D Bharat**. Since no backend APIs were provided, I simulated the backend behavior using local JSON data, service functions, artificial delays, filtering, sorting, pagination and error handling.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+The main goal of the project is to build a scalable and interactive dashboard for both investors and corporates.
+
+---
+
+## 🚀 Live Demo
+
+Deployed application:
+
+[Add your Vercel link here]
+
+---
+
+## 📌 Project Overview
+
+The application provides two main experiences:
+
+### Investor Dashboard
+
+Investors can:
+
+- View investment statistics
+- Explore available investment deals
+- Search and filter deals
+- Sort deals based on ROI and investment amount
+- View detailed company information
+- Get personalized deal recommendations
+- Manage interests
+- View investments
+- Analyze risk and ROI information
+
+### Corporate Dashboard
+
+Corporates can:
+
+- View funding analytics
+- Track total funding raised
+- Analyze investor activity
+- View industry distribution
+- Monitor investor communication
+- Understand funding trends through charts
+
+---
+
+## ✨ Main Features
+
+### 1. Deal Explorer
+
+The Deal Explorer allows investors to find suitable investment opportunities.
+
+Features include:
+
+- Search companies, industries and locations
+- Industry filtering
+- Risk-level filtering
+- Funding-stage filtering
+- Deal-status filtering
+- Minimum and maximum ROI
+- Minimum and maximum investment
+- Sorting
+- Pagination
+- Loading states
+- Error handling
+- Empty states
+
+Search is also debounced so that the application does not make a new request on every keystroke.
+
+---
+
+### 2. Deal Details
+
+Each deal has its own details page.
+
+The page contains information such as:
+
+- Company name
+- Industry
+- Location
+- Company description
+- Funding stage
+- Investment requirement
+- Expected ROI
+- Risk level
+- Financial information
+- ROI projections
+- Risk analysis
+
+The page is designed to give investors enough information before considering an investment opportunity.
+
+---
+
+### 3. Recommendation Engine
+
+I implemented a frontend recommendation engine to match investors with suitable deals.
+
+Each deal receives a score based on:
+
+- Risk match
+- Industry match
+- Budget compatibility
+- ROI attractiveness
+
+The final score is calculated out of 100.
+
+The recommendation engine also provides reasons explaining why a particular deal matches the investor's preferences.
+
+Example:
+
+```text
+Risk Match: 25/25
+Industry Match: 25/25
+Budget Compatibility: 25/25
+ROI Attractiveness: 22/25
+
+Match Score: 97/100
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
