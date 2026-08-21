@@ -1,87 +1,99 @@
 # 3D Bharat Investor & Corporate Dashboard
 
-A modern full-stack style investment dashboard built with **Next.js, TypeScript, Redux Toolkit and Recharts**.
+A modern and interactive investment dashboard built as part of the **3D Bharat Full Stack Developer technical task**.
 
-This project was created as part of a Full Stack Developer task for **3D Bharat**. Since no backend APIs were provided, I simulated the backend behavior using local JSON data, service functions, artificial delays, filtering, sorting, pagination and error handling.
+The application is designed for investors and corporates to explore investment opportunities, analyze deals, compare risk and ROI, discover suitable investments, and view investment-related analytics.
 
-The main goal of the project is to build a scalable and interactive dashboard for both investors and corporates.
+The project focuses mainly on **frontend architecture, simulated backend behavior, data visualization, state management, performance, and user experience**.
+
+## Live Demo
+
+**Vercel:**
+https://3d-bharat-investor-dashboard-dun.vercel.app/
+
+**GitHub:**
+https://github.com/piyu54/3D-Bharat-
 
 ---
 
-## 🚀 Live Demo
+## Project Overview
 
-Deployed application:
+The goal of this project was to build a scalable investment dashboard without using a real backend API.
 
-[Add your Vercel link here]
+Instead of connecting to external APIs, the application uses local JSON datasets and a service layer that simulates backend behavior.
+
+The application includes:
+
+- Investor Dashboard
+- Corporate Dashboard
+- Deal Explorer
+- Deal Details
+- Investor Explorer
+- Investor Details
+- Investment Tracking
+- Interest Management
+- Deal Recommendation Engine
+- Risk and ROI analysis
+- Interactive charts
+- Filtering, sorting and pagination
+- Simulated loading and error states
+
+The application currently works with **80 investment deals and 15 investors** stored in local JSON files.
 
 ---
 
-## 📌 Project Overview
-
-The application provides two main experiences:
+## Main Features
 
 ### Investor Dashboard
 
-Investors can:
+The investor dashboard provides an overview of investment-related information.
 
-- View investment statistics
-- Explore available investment deals
-- Search and filter deals
-- Sort deals based on ROI and investment amount
-- View detailed company information
-- Get personalized deal recommendations
-- Manage interests
-- View investments
-- Analyze risk and ROI information
+It includes:
 
-### Corporate Dashboard
+- Total investments
+- Active deals
+- ROI overview
+- Risk distribution
+- Investment growth
+- Industry distribution
+- Risk vs ROI analysis
 
-Corporates can:
-
-- View funding analytics
-- Track total funding raised
-- Analyze investor activity
-- View industry distribution
-- Monitor investor communication
-- Understand funding trends through charts
+Charts are used to make the information easier to understand.
 
 ---
 
-## ✨ Main Features
+### Deal Explorer
 
-### 1. Deal Explorer
-
-The Deal Explorer allows investors to find suitable investment opportunities.
+The Deal Explorer allows investors to browse available investment opportunities.
 
 Features include:
 
-- Search companies, industries and locations
+- Company search
 - Industry filtering
-- Risk-level filtering
-- Funding-stage filtering
-- Deal-status filtering
-- Minimum and maximum ROI
-- Minimum and maximum investment
+- Risk filtering
+- ROI filtering
+- Investment range filtering
+- Funding stage filtering
+- Deal status filtering
 - Sorting
 - Pagination
 - Loading states
 - Error handling
 - Empty states
 
-Search is also debounced so that the application does not make a new request on every keystroke.
+Search is debounced to avoid unnecessary data processing while the user is typing.
 
 ---
 
-### 2. Deal Details
+### Deal Details
 
 Each deal has its own details page.
 
-The page contains information such as:
+The page provides information such as:
 
-- Company name
+- Company information
 - Industry
 - Location
-- Company description
 - Funding stage
 - Investment requirement
 - Expected ROI
@@ -90,32 +102,411 @@ The page contains information such as:
 - ROI projections
 - Risk analysis
 
-The page is designed to give investors enough information before considering an investment opportunity.
+The deal details page also provides interactive sections for better user experience.
 
 ---
 
-### 3. Recommendation Engine
+### Recommendation Engine
 
-I implemented a frontend recommendation engine to match investors with suitable deals.
+The project includes a frontend recommendation engine that ranks investment opportunities according to investor preferences.
 
-Each deal receives a score based on:
+Deals are scored using four main factors:
 
-- Risk match
-- Industry match
-- Budget compatibility
-- ROI attractiveness
+1. Risk Match
+2. Industry Match
+3. Budget Compatibility
+4. ROI Attractiveness
 
-The final score is calculated out of 100.
+Each deal receives a match score out of 100.
 
-The recommendation engine also provides reasons explaining why a particular deal matches the investor's preferences.
+The system also explains why a particular deal was recommended.
 
-Example:
+For example:
+
+- Matches the selected risk preference
+- Matches the preferred industry
+- Fits within the investment budget
+- Expected ROI meets the minimum ROI requirement
+
+The recommendation logic is separated from the UI so that it can be extended easily in the future.
+
+---
+
+### Investor Explorer
+
+The investor section allows users to explore available investors.
+
+It includes:
+
+- Investor listing
+- Investor information
+- Investor details
+- Investment preferences
+- Investor-related data
+
+The investor data is stored locally and accessed through the service layer.
+
+---
+
+### My Investments / Interests
+
+The project includes sections for managing investment-related information.
+
+User interests can be stored on the frontend and persisted using browser storage where required.
+
+This allows the application to maintain user selections between sessions.
+
+---
+
+### Corporate Dashboard
+
+The corporate dashboard provides analytics from the company/funding perspective.
+
+It includes:
+
+- Total funding raised
+- Investor count
+- Conversion information
+- Funding trends
+- Industry distribution
+- Investor communication analytics
+
+Charts are used to present the data in a simple and readable way.
+
+---
+
+## Technology Stack
+
+### Frontend
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+
+### State Management
+
+- Redux Toolkit
+- React Redux
+
+### Data Visualization
+
+- Recharts
+
+### Data
+
+- JSON mock datasets
+- Local frontend data
+
+### Deployment
+
+- Vercel
+
+### Development
+
+- Node.js
+- npm
+
+---
+
+## Project Architecture
+
+The project follows a separation-of-concerns approach.
 
 ```text
-Risk Match: 25/25
-Industry Match: 25/25
-Budget Compatibility: 25/25
-ROI Attractiveness: 22/25
-
-Match Score: 97/100
+src/
+│
+├── app/
+│   ├── corporate/
+│   ├── deals/
+│   ├── interest/
+│   ├── investments/
+│   ├── investor/
+│   ├── investors/
+│   └── matching/
+│
+├── components/
+│   ├── corporate/
+│   ├── dashboard/
+│   ├── deal/
+│   ├── investors/
+│   ├── layout/
+│   └── providers/
+│
+├── data/
+│   ├── deals.json
+│   └── investors.json
+│
+├── hooks/
+│   ├── Redux.ts
+│   ├── useDealExplorer.tsx
+│   ├── useDealRecommendations.tsx
+│   ├── useDeals.tsx
+│   ├── useInterests.ts
+│   └── useInvestors.ts
+│
+├── services/
+│   ├── dealService.ts
+│   ├── investorsService.ts
+│   └── recommendationService.ts
+│
+├── store/
+│   ├── hooks.tsx
+│   ├── index.tsx
+│   └── slices/
+│
+├── types/
+│   ├── deal.ts
+│   └── investor.ts
+│
+└── utils/
+    ├── analytics.ts
+    ├── dealRecommendation.ts
+    ├── investorDealMatching.ts
+    ├── recommendation.ts
+    ├── recommendationEngine.ts
+    ├── serviceError.ts
+    └── storage.ts
 ```
+
+---
+
+## Data Layer
+
+Since no backend API was provided for the technical task, the application uses mock data.
+
+### Deals
+
+The project contains:
+
+**80 investment deals**
+
+Stored in:
+
+```text
+src/data/deals.json
+```
+
+### Investors
+
+The project contains:
+
+**15 investors**
+
+Stored in:
+
+```text
+src/data/investors.json
+```
+
+The data structure is designed so that a real backend API can be connected later without requiring major changes to the UI.
+
+---
+
+## Service Layer
+
+The service layer is responsible for simulating backend operations.
+
+For example:
+
+```text
+services/dealService.ts
+```
+
+handles:
+
+- Fetching deals
+- Searching
+- Filtering
+- Sorting
+- Pagination
+- Fetching individual deals
+- Simulated network delay
+- Simulated service errors
+
+Artificial delays between approximately **300–800ms** are used to simulate real asynchronous API behavior.
+
+This makes the frontend handle realistic:
+
+- Loading states
+- Error states
+- Retry behavior
+- Async operations
+
+---
+
+## State Management
+
+Redux Toolkit is used for application-level state management.
+
+The project separates state into different slices, including:
+
+- Deals
+- Investors
+- Investments
+- Interests
+
+Redux is used to manage data and application state while local component state is used for UI-specific behavior.
+
+---
+
+## Performance Optimizations
+
+Several frontend optimization techniques have been implemented.
+
+### Debounced Search
+
+The Deal Explorer uses a debounce mechanism for search.
+
+Instead of triggering a request for every keystroke, the application waits briefly before processing the search.
+
+This reduces unnecessary service calls.
+
+### Memoization
+
+The project uses:
+
+- `useMemo`
+- `useCallback`
+
+where appropriate to avoid unnecessary calculations and function recreation.
+
+### Request Protection
+
+The Deal Explorer tracks requests so that an older asynchronous request does not overwrite newer results.
+
+### Pagination
+
+Instead of rendering all 80 deals at once, the Deal Explorer displays a limited number of results per page.
+
+This keeps the interface lightweight and easier to navigate.
+
+### Component Separation
+
+Reusable UI elements are separated into components instead of keeping all logic inside page files.
+
+---
+
+## User Experience
+
+The dashboard follows a modern fintech-inspired design.
+
+The interface includes:
+
+- Dark dashboard theme
+- Responsive layout
+- Consistent spacing
+- Cards
+- Charts
+- Interactive filters
+- Hover effects
+- Loading skeletons
+- Empty states
+- Error states
+- Responsive navigation
+
+The application is designed to work across desktop and smaller screen sizes.
+
+---
+
+## Error Handling
+
+The application includes simulated service failures to demonstrate how a frontend application can handle backend failures.
+
+When an error occurs, the UI provides:
+
+- Error message
+- Retry option
+- Loading state recovery
+
+This was implemented even though the project does not use a real backend API.
+
+---
+
+## Running the Project Locally
+
+Clone the repository:
+
+```bash
+git clone https://github.com/piyu54/3D-Bharat-.git
+```
+
+Move into the project:
+
+```bash
+cd 3D-Bharat-
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+Open:
+
+```text
+http://localhost:3000
+```
+
+---
+
+## Production Build
+
+To create a production build:
+
+```bash
+npm run build
+```
+
+The project currently builds successfully with Next.js.
+
+---
+
+## Deployment
+
+The application is deployed using Vercel.
+
+Live application:
+
+https://3d-bharat-investor-dashboard-dun.vercel.app/
+
+The project can be deployed again by connecting the GitHub repository to Vercel.
+
+If this project were connected to a real backend, the next improvements would include:
+
+- Authentication and authorization
+- Real database integration
+- REST/GraphQL APIs
+- Real-time investment data
+- User portfolios
+- Actual investment transactions
+- Notifications
+- Advanced recommendation models
+- Server-side caching
+- Role-based access control
+- Automated testing
+
+---
+
+## Disclaimer
+
+This project was created as a technical demonstration for the Full Stack Developer task.
+
+All investment data used in the application is mock/demo data and should not be considered real financial information or investment advice.
+
+---
+
+## Author
+
+**Priya Kushwaha**
+
+Full Stack / Java Developer
+
+Built as part of the **3D Bharat Full Stack Developer Technical Task**.
