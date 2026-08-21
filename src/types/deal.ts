@@ -18,26 +18,20 @@ export interface Deal {
   industry: string;
   location: string;
   description: string;
-
   fundingStage: FundingStage;
   fundingRequired: number;
   minimumInvestment: number;
-
   expectedROI: number;
   riskLevel: RiskLevel;
-
   valuation: number;
   revenue: number;
   revenueGrowth: number;
   ebitdaMargin: number;
-
   employees: number;
   foundedYear: number;
   investorCount: number;
-
   status: DealStatus;
   fundingProgress: number;
   interest: number;
-
   createdAt: string;
 }

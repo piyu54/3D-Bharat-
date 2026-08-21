@@ -3,27 +3,37 @@
 import Link from "next/link";
 
 import DealFilters from "@/components/deals/DealFilters";
+import DealRecommendations from "@/components/deals/DealRecommendations";
+import { useDealRecommendations } from "@/hooks/useDealRecommendations";
 import DashboardShell from "@/components/layout/DashboardShell";
 import { useDealExplorer } from "@/hooks/useDealExplorer";
 
 export default function DealsPage() {
-const {
-  deals,
-  total,
-  page,
-  totalPages,
-  status,
-  error,
-  retry,
-  filters,
-  updateFilter,
-  clearFilters,
-  sortBy,
-  changeSort,
-  changePage,
-} = useDealExplorer({
-  pageSize: 10,
-});
+  const {
+    deals,
+    total,
+    page,
+    totalPages,
+    status,
+    error,
+    retry,
+    filters,
+    updateFilter,
+    clearFilters,
+    sortBy,
+    changeSort,
+    changePage,
+  } = useDealExplorer({
+    pageSize: 10,
+  });
+
+  const recommendedDeals = useDealRecommendations({
+    deals,
+    limit: 5,
+  });
+
+
+
 
   return (
     <DashboardShell>
@@ -46,7 +56,14 @@ const {
           </p>
 
         </div>
-
+{/* Recommendations */}
+{status === "success" && recommendedDeals.length > 0 && (
+  <div className="mb-6">
+    <DealRecommendations
+      deals={recommendedDeals}
+    />
+  </div>
+)}
         {/* Search */}
         <div className="rounded-xl border border-slate-800 bg-slate-900 p-4 mb-4">
 

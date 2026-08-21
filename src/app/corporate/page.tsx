@@ -1,7 +1,9 @@
 "use client";
 
+import InvestorCompositionChart from "@/components/corporate/InvestorCompositionChart";
+import IndustryDistributionChart from "@/components/corporate/IndustryDistributionChart";
 import { useEffect, useMemo, useState } from "react";
-
+import FundingTrendChart from "@/components/corporate/FundingTrendChart";
 import DashboardShell from "@/components/layout/DashboardShell";
 import { getDeals } from "@/services/dealService";
 import { getInvestors } from "@/services/investorService";
@@ -209,6 +211,34 @@ export default function CorporateDashboardPage() {
   }, [deals]);
 
   /*
+ * Funding Trend
+ */
+const fundingTrendData = useMemo(() => {
+  const safeDeals = Array.isArray(deals) ? deals : [];
+
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+  ];
+
+  const totalFunding = safeDeals.reduce(
+    (sum, deal) =>
+      sum + Number(deal.fundingRequired || 0),
+    0
+  );
+
+  return months.map((month, index) => ({
+    month,
+    funding: Math.round(
+      (totalFunding / 6) * (index + 1)
+    ),
+  }));
+}, [deals]);
+  /*
    * Loading
    */
   if (status === "loading") {
@@ -367,7 +397,20 @@ export default function CorporateDashboardPage() {
           </div>
 
         </div>
+            {/* Funding Trend */}
+<div className="mt-4 rounded-xl border border-slate-800 bg-slate-900 p-6">
+  <div className="mb-6">
+    <h2 className="font-semibold text-white">
+      Funding Trend
+    </h2>
 
+    <p className="text-xs text-slate-500 mt-1">
+      Simulated funding activity over time
+    </p>
+  </div>
+
+  <FundingTrendChart data={fundingTrendData} />
+</div>
         {/* Analytics */}
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 mt-4">
 
@@ -525,137 +568,37 @@ export default function CorporateDashboardPage() {
           </div>
 
         </div>
+{/* Industry Distribution Chart */}
+<div className="mt-4 rounded-xl border border-slate-800 bg-slate-900 p-6">
+  <div className="mb-6">
+    <h2 className="font-semibold text-white">
+      Industry Distribution
+    </h2>
 
-        {/* Industry Analytics */}
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 mt-4">
+    <p className="text-xs text-slate-500 mt-1">
+      Deal opportunities across industries
+    </p>
+  </div>
 
-          {/* Industry Distribution */}
-          <div className="rounded-xl border border-slate-800 bg-slate-900 p-6">
+  <IndustryDistributionChart data={industryData} />
+</div>
 
-            <h2 className="font-semibold text-white">
-              Industry Distribution
-            </h2>
+{/* Investor Composition Chart */}
+<div className="mt-4 rounded-xl border border-slate-800 bg-slate-900 p-6">
+  <div className="mb-6">
+    <h2 className="font-semibold text-white">
+      Investor Composition
+    </h2>
 
-            <p className="text-xs text-slate-500 mt-1">
-              Opportunities by industry
-            </p>
+    <p className="text-xs text-slate-500 mt-1">
+      Investor profiles by investor type
+    </p>
+  </div>
 
-            <div className="mt-6 space-y-4">
-
-              {industryData.length === 0 ? (
-                <p className="text-sm text-slate-600">
-                  No industry data available.
-                </p>
-              ) : (
-                industryData
-                  .slice(0, 6)
-                  .map((item) => {
-
-                    const percentage =
-                      safeDeals.length > 0
-                        ? (item.count /
-                            safeDeals.length) *
-                          100
-                        : 0;
-
-                    return (
-                      <div key={item.industry}>
-
-                        <div className="flex items-center justify-between mb-2">
-
-                          <span className="text-sm text-slate-400">
-                            {item.industry}
-                          </span>
-
-                          <span className="text-xs text-slate-500">
-                            {item.count} deals
-                          </span>
-
-                        </div>
-
-                        <div className="h-2 rounded-full bg-slate-800 overflow-hidden">
-
-                          <div
-                            className="h-full rounded-full bg-cyan-400"
-                            style={{
-                              width: `${percentage}%`,
-                            }}
-                          />
-
-                        </div>
-
-                      </div>
-                    );
-                  })
-              )}
-
-            </div>
-
-          </div>
-
-          {/* Investor Types */}
-          <div className="rounded-xl border border-slate-800 bg-slate-900 p-6">
-
-            <h2 className="font-semibold text-white">
-              Investor Composition
-            </h2>
-
-            <p className="text-xs text-slate-500 mt-1">
-              Investor profiles by type
-            </p>
-
-            <div className="mt-6 space-y-4">
-
-              {investorTypeData.length === 0 ? (
-                <p className="text-sm text-slate-600">
-                  No investor data available.
-                </p>
-              ) : (
-                investorTypeData.map((item) => {
-
-                  const percentage =
-                    safeInvestors.length > 0
-                      ? (item.count /
-                          safeInvestors.length) *
-                        100
-                      : 0;
-
-                  return (
-                    <div key={item.type}>
-
-                      <div className="flex items-center justify-between mb-2">
-
-                        <span className="text-sm text-slate-400">
-                          {item.type}
-                        </span>
-
-                        <span className="text-xs text-slate-500">
-                          {item.count}
-                        </span>
-
-                      </div>
-
-                      <div className="h-2 rounded-full bg-slate-800 overflow-hidden">
-
-                        <div
-                          className="h-full rounded-full bg-emerald-400"
-                          style={{
-                            width: `${percentage}%`,
-                          }}
-                        />
-
-                      </div>
-
-                    </div>
-                  );
-                })
-              )}
-
-            </div>
-
-          </div>
-
-        </div>
+  <InvestorCompositionChart
+    data={investorTypeData}
+  />
+</div>
 
         {/* Top Opportunities */}
         <div className="mt-4 rounded-xl border border-slate-800 bg-slate-900">
