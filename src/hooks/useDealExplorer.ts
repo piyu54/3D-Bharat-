@@ -24,12 +24,8 @@ interface UseDealExplorerOptions {
   pageSize?: number;
 }
 
-function useDebounce<T>(
-  value: T,
-  delay: number
-) {
-  const [debouncedValue, setDebouncedValue] =
-    useState(value);
+function useDebounce<T>(value: T, delay: number) {
+  const [debouncedValue, setDebouncedValue] = useState(value);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -49,8 +45,7 @@ export function useDealExplorer(
 ) {
   const pageSize = options.pageSize ?? 10;
 
-  const [filters, setFilters] =
-    useState<DealFilters>({});
+  const [filters, setFilters] = useState<DealFilters>({});
 
   const debouncedSearch = useDebounce(
     filters.search ?? "",
@@ -101,10 +96,7 @@ export function useDealExplorer(
         return;
       }
 
-      console.error(
-        "Failed to load deals:",
-        err
-      );
+      console.error("Failed to load deals:", err);
 
       setResult(null);
       setStatus("error");
@@ -161,12 +153,9 @@ export function useDealExplorer(
     []
   );
 
-  const changePage = useCallback(
-    (newPage: number) => {
-      setPage(newPage);
-    },
-    []
-  );
+  const changePage = useCallback((newPage: number) => {
+    setPage(newPage);
+  }, []);
 
   const retry = useCallback(() => {
     fetchDeals();
@@ -174,35 +163,21 @@ export function useDealExplorer(
 
   return {
     deals: result?.data ?? [],
-
     total: result?.total ?? 0,
-
     page: result?.page ?? page,
-
-    pageSize:
-      result?.pageSize ?? pageSize,
-
-    totalPages:
-      result?.totalPages ?? 0,
+    pageSize: result?.pageSize ?? pageSize,
+    totalPages: result?.totalPages ?? 0,
 
     filters,
-
     sortBy,
-
     status,
-
     error,
 
     updateFilter,
-
     updateFilters,
-
     clearFilters,
-
     changeSort,
-
     changePage,
-
     retry,
   };
 }

@@ -4,68 +4,61 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 
 import DashboardShell from "@/components/layout/DashboardShell";
-import { getDealById } from "@/services/dealService";
-import { useInterests } from "@/hooks/useInterests";
+import { getInvestorById } from "@/services/investorService";
 
-import type { Deal } from "@/types/deal";
+import type { Investor } from "@/types/investor";
 
-export default function DealDetailsPage() {
+export default function InvestorDetailsPage() {
   const params = useParams();
   const router = useRouter();
 
   const id = params.id as string;
 
-  const [deal, setDeal] = useState<Deal | null>(null);
+  const [investor, setInvestor] =
+    useState<Investor | null>(null);
 
   const [status, setStatus] = useState<
     "loading" | "success" | "error"
   >("loading");
 
-  const {
-    isInterested,
-    addInterest,
-    removeInterest,
-  } = useInterests();
-
-  const interested = deal
-    ? isInterested(deal.id)
-    : false;
-
   useEffect(() => {
     let active = true;
 
-    const loadDeal = async () => {
+    const loadInvestor = async () => {
       setStatus("loading");
 
       try {
-        const response = await getDealById(id);
+        const response = await getInvestorById(id);
 
         if (!active) {
           return;
         }
 
         if (!response) {
-          setDeal(null);
+          setInvestor(null);
           setStatus("error");
           return;
         }
 
-        setDeal(response);
+        setInvestor(response);
         setStatus("success");
       } catch (error) {
-        console.error("Failed to load deal:", error);
+        console.error(
+          "Failed to load investor:",
+          error
+        );
 
         if (!active) {
           return;
         }
 
-        setDeal(null);
+        setInvestor(null);
         setStatus("error");
       }
     };
 
     if (id) {
-      loadDeal();
+      loadInvestor();
     }
 
     return () => {
@@ -73,6 +66,7 @@ export default function DealDetailsPage() {
     };
   }, [id]);
 
+  /* Loading */
   if (status === "loading") {
     return (
       <DashboardShell>
@@ -93,7 +87,8 @@ export default function DealDetailsPage() {
     );
   }
 
-  if (status === "error" || !deal) {
+  /* Error */
+  if (status === "error" || !investor) {
     return (
       <DashboardShell>
         <div className="p-6 lg:p-8 max-w-[1600px] mx-auto">
@@ -103,18 +98,19 @@ export default function DealDetailsPage() {
             onClick={() => router.back()}
             className="text-sm text-cyan-400 hover:text-cyan-300"
           >
-            ← Back to deals
+            ← Back to investors
           </button>
 
           <div className="mt-8 rounded-xl border border-red-900/50 bg-red-950/20 p-8">
+
             <h1 className="text-xl font-semibold text-white">
-              Deal not found
+              Investor not found
             </h1>
 
             <p className="text-sm text-slate-400 mt-2">
-              We couldn't find the investment opportunity you're
-              looking for.
+              We couldn't find the investor you're looking for.
             </p>
+
           </div>
 
         </div>
@@ -132,54 +128,58 @@ export default function DealDetailsPage() {
           onClick={() => router.back()}
           className="text-sm text-slate-400 hover:text-cyan-400 transition mb-6"
         >
-          ← Back to Deal Explorer
+          ← Back to Investor Explorer
         </button>
 
-        {/* Company Header */}
+        {/* Header */}
         <div className="rounded-xl border border-slate-800 bg-slate-900 p-6 lg:p-8">
 
           <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
 
-            <div className="min-w-0">
-
+            <div>
               <p className="text-sm text-cyan-400 mb-2">
-                {deal.industry}
+                {investor.type}
               </p>
 
               <h1 className="text-3xl lg:text-4xl font-semibold tracking-tight text-white">
-                {deal.companyName}
+                {investor.name}
               </h1>
 
-              <p className="text-slate-400 mt-2">
-                {deal.location}
+              <p className="text-lg text-slate-300 mt-2">
+                {investor.company}
               </p>
 
-              <p className="text-sm text-slate-400 mt-5 max-w-3xl leading-6">
-                {deal.description}
+              <p className="text-sm text-slate-500 mt-2">
+                {investor.location}
               </p>
-
             </div>
 
-            {/* Interest Button */}
-            <button
-              type="button"
-              onClick={() => {
-                if (interested) {
-                  removeInterest(deal.id);
-                } else {
-                  addInterest(deal.id);
-                }
-              }}
-              className={`shrink-0 rounded-lg px-5 py-2.5 text-sm font-medium transition ${
-                interested
-                  ? "border border-cyan-500/40 bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20"
-                  : "bg-cyan-500 text-slate-950 hover:bg-cyan-400"
+            {/* Risk */}
+            <div
+              className={`rounded-lg px-4 py-3 ${
+                investor.riskPreference === "Low"
+                  ? "bg-emerald-500/10"
+                  : investor.riskPreference === "Medium"
+                  ? "bg-amber-500/10"
+                  : "bg-red-500/10"
               }`}
             >
-              {interested
-                ? "✓ Added to Interests"
-                : "♡ Add to Interests"}
-            </button>
+              <p className="text-xs text-slate-500">
+                Risk Preference
+              </p>
+
+              <p
+                className={`text-lg font-semibold mt-1 ${
+                  investor.riskPreference === "Low"
+                    ? "text-emerald-400"
+                    : investor.riskPreference === "Medium"
+                    ? "text-amber-400"
+                    : "text-red-400"
+                }`}
+              >
+                {investor.riskPreference}
+              </p>
+            </div>
 
           </div>
 
@@ -190,60 +190,71 @@ export default function DealDetailsPage() {
 
           <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
             <p className="text-sm text-slate-500">
-              Expected ROI
-            </p>
-
-            <p className="text-2xl font-semibold text-emerald-400 mt-2">
-              {deal.expectedROI}%
-            </p>
-          </div>
-
-          <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
-            <p className="text-sm text-slate-500">
-              Minimum Investment
+              Investment Capacity
             </p>
 
             <p className="text-2xl font-semibold text-white mt-2">
-              ₹{deal.minimumInvestment}L
+              ₹{investor.investmentCapacity}L
             </p>
           </div>
 
           <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
             <p className="text-sm text-slate-500">
-              Risk Level
+              Minimum Ticket
             </p>
 
-            <p className="text-2xl font-semibold text-amber-400 mt-2">
-              {deal.riskLevel}
+            <p className="text-2xl font-semibold text-cyan-400 mt-2">
+              ₹{investor.minimumTicket}L
             </p>
           </div>
 
           <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
             <p className="text-sm text-slate-500">
-              Funding Stage
+              Maximum Ticket
             </p>
 
             <p className="text-2xl font-semibold text-white mt-2">
-              {deal.fundingStage}
+              ₹{investor.maximumTicket}L
+            </p>
+          </div>
+
+          <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
+            <p className="text-sm text-slate-500">
+              Investor Type
+            </p>
+
+            <p className="text-lg font-semibold text-white mt-2">
+              {investor.type}
             </p>
           </div>
 
         </div>
 
-        {/* Details */}
+        {/* Main Details */}
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 mt-4">
 
+          {/* Profile */}
           <div className="xl:col-span-2 rounded-xl border border-slate-800 bg-slate-900 p-6">
 
             <h2 className="text-lg font-semibold text-white">
-              Financial Overview
+              Investor Profile
             </h2>
 
             <p className="text-sm text-slate-500 mt-1">
-              Key information about this investment opportunity.
+              Investment preferences and profile information.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
+
+              <div>
+                <p className="text-xs text-slate-500">
+                  Investor
+                </p>
+
+                <p className="text-sm text-white mt-1">
+                  {investor.name}
+                </p>
+              </div>
 
               <div>
                 <p className="text-xs text-slate-500">
@@ -251,17 +262,17 @@ export default function DealDetailsPage() {
                 </p>
 
                 <p className="text-sm text-white mt-1">
-                  {deal.companyName}
+                  {investor.company}
                 </p>
               </div>
 
               <div>
                 <p className="text-xs text-slate-500">
-                  Industry
+                  Type
                 </p>
 
                 <p className="text-sm text-white mt-1">
-                  {deal.industry}
+                  {investor.type}
                 </p>
               </div>
 
@@ -271,37 +282,27 @@ export default function DealDetailsPage() {
                 </p>
 
                 <p className="text-sm text-white mt-1">
-                  {deal.location}
+                  {investor.location}
                 </p>
               </div>
 
               <div>
                 <p className="text-xs text-slate-500">
-                  Status
+                  Risk Preference
                 </p>
 
                 <p className="text-sm text-white mt-1">
-                  {deal.status}
+                  {investor.riskPreference}
                 </p>
               </div>
 
               <div>
                 <p className="text-xs text-slate-500">
-                  Funding Stage
+                  Investment Capacity
                 </p>
 
                 <p className="text-sm text-white mt-1">
-                  {deal.fundingStage}
-                </p>
-              </div>
-
-              <div>
-                <p className="text-xs text-slate-500">
-                  Created
-                </p>
-
-                <p className="text-sm text-white mt-1">
-                  {new Date(deal.createdAt).toLocaleDateString()}
+                  ₹{investor.investmentCapacity}L
                 </p>
               </div>
 
@@ -309,49 +310,42 @@ export default function DealDetailsPage() {
 
           </div>
 
-          {/* Risk Analysis */}
+          {/* Ticket Range */}
           <div className="rounded-xl border border-slate-800 bg-slate-900 p-6">
 
             <h2 className="text-lg font-semibold text-white">
-              Risk Analysis
+              Investment Range
             </h2>
 
             <p className="text-sm text-slate-500 mt-1">
-              Current assessment of the opportunity.
+              Typical investment ticket range.
             </p>
 
             <div className="mt-8">
 
               <div className="flex items-center justify-between">
-
                 <span className="text-sm text-slate-400">
-                  Risk Level
+                  Minimum
                 </span>
 
-                <span className="text-sm font-medium text-amber-400">
-                  {deal.riskLevel}
+                <span className="text-sm font-medium text-white">
+                  ₹{investor.minimumTicket}L
+                </span>
+              </div>
+
+              <div className="flex items-center justify-between mt-4">
+                <span className="text-sm text-slate-400">
+                  Maximum
                 </span>
 
+                <span className="text-sm font-medium text-white">
+                  ₹{investor.maximumTicket}L
+                </span>
               </div>
 
-              <div className="mt-4 h-2 rounded-full bg-slate-800 overflow-hidden">
-
-                <div
-                  className={`h-full rounded-full ${
-                    deal.riskLevel === "Low"
-                      ? "w-1/3 bg-emerald-400"
-                      : deal.riskLevel === "Medium"
-                      ? "w-2/3 bg-amber-400"
-                      : "w-full bg-red-400"
-                  }`}
-                />
-
+              <div className="mt-6 h-2 rounded-full bg-slate-800 overflow-hidden">
+                <div className="h-full w-full rounded-full bg-cyan-500" />
               </div>
-
-              <p className="text-xs text-slate-500 mt-4 leading-5">
-                Risk should be evaluated alongside expected returns,
-                investment size, and overall portfolio exposure.
-              </p>
 
             </div>
 
@@ -359,32 +353,29 @@ export default function DealDetailsPage() {
 
         </div>
 
-        {/* ROI Projection */}
+        {/* Preferred Industries */}
         <div className="rounded-xl border border-slate-800 bg-slate-900 p-6 mt-4">
 
-          <div className="flex items-center justify-between">
+          <h2 className="text-lg font-semibold text-white">
+            Preferred Industries
+          </h2>
 
-            <div>
-              <h2 className="text-lg font-semibold text-white">
-                ROI Projection
-              </h2>
+          <p className="text-sm text-slate-500 mt-1">
+            Industries this investor is interested in.
+          </p>
 
-              <p className="text-sm text-slate-500 mt-1">
-                Expected return profile for this opportunity.
-              </p>
-            </div>
+          <div className="flex flex-wrap gap-3 mt-6">
 
-            <span className="text-lg font-semibold text-emerald-400">
-              {deal.expectedROI}%
-            </span>
-
-          </div>
-
-          <div className="mt-8 h-40 rounded-lg border border-dashed border-slate-800 flex items-center justify-center">
-
-            <p className="text-sm text-slate-600">
-              ROI projection visualization coming next
-            </p>
+            {investor.preferredIndustries.map(
+              (industry) => (
+                <span
+                  key={industry}
+                  className="rounded-lg border border-slate-700 bg-slate-950 px-4 py-2 text-sm text-slate-300"
+                >
+                  {industry}
+                </span>
+              )
+            )}
 
           </div>
 

@@ -2,8 +2,6 @@ import dealsData from "@/data/deals.json";
 import type { Deal, RiskLevel } from "@/types/deal";
 import { simulateServiceError } from "@/utils/serviceError";
 
-
-
 export interface DealFilters {
   search?: string;
   industry?: string;
@@ -49,16 +47,17 @@ const simulateDelay = () => {
   });
 };
 
-
-
 export const getDeals = async ({
   filters = {},
   sortBy = "newest",
   page = 1,
   pageSize = 10,
 }: GetDealsParams = {}): Promise<DealsResponse> => {
-    await simulateDelay();
-    simulateServiceError();
+  await simulateDelay();
+
+  simulateServiceError();
+
+  const safePageSize = Math.max(1, pageSize);
 
   let filteredDeals = [...deals];
 
@@ -97,7 +96,7 @@ export const getDeals = async ({
     );
   }
 
-  // Risk
+  // Risk Level
   if (riskLevel && riskLevel !== "All") {
     filteredDeals = filteredDeals.filter(
       (deal) => deal.riskLevel === riskLevel
@@ -117,22 +116,20 @@ export const getDeals = async ({
     );
   }
 
-  // Investment range
+  // Investment
   if (minInvestment !== undefined) {
     filteredDeals = filteredDeals.filter(
-      (deal) =>
-        deal.minimumInvestment >= minInvestment
+      (deal) => deal.minimumInvestment >= minInvestment
     );
   }
 
   if (maxInvestment !== undefined) {
     filteredDeals = filteredDeals.filter(
-      (deal) =>
-        deal.minimumInvestment <= maxInvestment
+      (deal) => deal.minimumInvestment <= maxInvestment
     );
   }
 
-  // Funding stage
+  // Funding Stage
   if (fundingStage && fundingStage !== "All") {
     filteredDeals = filteredDeals.filter(
       (deal) => deal.fundingStage === fundingStage
@@ -156,16 +153,10 @@ export const getDeals = async ({
         return a.expectedROI - b.expectedROI;
 
       case "investment-high":
-        return (
-          b.minimumInvestment -
-          a.minimumInvestment
-        );
+        return b.minimumInvestment - a.minimumInvestment;
 
       case "investment-low":
-        return (
-          a.minimumInvestment -
-          b.minimumInvestment
-        );
+        return a.minimumInvestment - b.minimumInvestment;
 
       case "oldest":
         return (
@@ -184,26 +175,33 @@ export const getDeals = async ({
 
   // Pagination
   const total = filteredDeals.length;
-  const totalPages = Math.ceil(total / pageSize);
+
+  const totalPages = Math.ceil(
+    total / safePageSize
+  );
 
   const safePage = Math.max(
     1,
     Math.min(page, totalPages || 1)
   );
 
-  const startIndex = (safePage - 1) * pageSize;
-  const endIndex = startIndex + pageSize;
+  const startIndex =
+    (safePage - 1) * safePageSize;
 
-  const paginatedDeals = filteredDeals.slice(
-    startIndex,
-    endIndex
-  );
+  const endIndex =
+    startIndex + safePageSize;
+
+  const paginatedDeals =
+    filteredDeals.slice(
+      startIndex,
+      endIndex
+    );
 
   return {
     data: paginatedDeals,
     total,
     page: safePage,
-    pageSize,
+    pageSize: safePageSize,
     totalPages,
   };
 };

@@ -11,9 +11,7 @@ const simulateDelay = () => {
   });
 };
 
-export const getInvestors = async (): Promise<
-  Investor[]
-> => {
+export const getInvestors = async (): Promise<Investor[]> => {
   await simulateDelay();
 
   return [...investors];

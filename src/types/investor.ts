@@ -10,13 +10,9 @@ export interface Investor {
   company: string;
   type: InvestorType;
   location: string;
-
   investmentCapacity: number;
-
   preferredIndustries: string[];
-
   riskPreference: "Low" | "Medium" | "High";
-
   minimumTicket: number;
   maximumTicket: number;
 }

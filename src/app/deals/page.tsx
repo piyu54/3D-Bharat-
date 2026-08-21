@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import DealFilters from "@/components/deals/DealFilters";
 import DashboardShell from "@/components/layout/DashboardShell";
 import { useDealExplorer } from "@/hooks/useDealExplorer";
@@ -199,81 +201,76 @@ const {
           <div className="space-y-3">
 
             {deals.map((deal) => (
+  <Link
+    key={deal.id}
+    href={`/deals/${deal.id}`}
+    className="block rounded-xl border border-slate-800 bg-slate-900 p-5 transition hover:border-cyan-500/40 hover:bg-slate-800/60"
+  >
+    <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
 
-              <div
-                key={deal.id}
-                className="rounded-xl border border-slate-800 bg-slate-900 p-5 transition hover:border-slate-700 hover:bg-slate-800/60"
-              >
+      {/* Company */}
+      <div className="min-w-0">
+        <h2 className="text-lg font-medium text-white">
+          {deal.companyName}
+        </h2>
 
-                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
+        <p className="text-sm text-slate-500 mt-1">
+          {deal.industry} · {deal.location}
+        </p>
 
-                  {/* Company */}
-                  <div className="min-w-0">
+        <p className="text-sm text-slate-400 mt-3 line-clamp-2">
+          {deal.description}
+        </p>
+      </div>
 
-                    <h2 className="text-lg font-medium text-white">
-                      {deal.companyName}
-                    </h2>
+      {/* Metrics */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-5 lg:min-w-[520px]">
 
-                    <p className="text-sm text-slate-500 mt-1">
-                      {deal.industry} · {deal.location}
-                    </p>
+        <div>
+          <p className="text-xs text-slate-500">
+            Expected ROI
+          </p>
 
-                    <p className="text-sm text-slate-400 mt-3 line-clamp-2">
-                      {deal.description}
-                    </p>
+          <p className="text-lg font-semibold text-emerald-400 mt-1">
+            {deal.expectedROI}%
+          </p>
+        </div>
 
-                  </div>
+        <div>
+          <p className="text-xs text-slate-500">
+            Investment
+          </p>
 
-                  {/* Metrics */}
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-5 lg:min-w-[520px]">
+          <p className="text-sm font-medium text-white mt-1">
+            ₹{deal.minimumInvestment}L
+          </p>
+        </div>
 
-                    <div>
-                      <p className="text-xs text-slate-500">
-                        Expected ROI
-                      </p>
+        <div>
+          <p className="text-xs text-slate-500">
+            Risk
+          </p>
 
-                      <p className="text-lg font-semibold text-emerald-400 mt-1">
-                        {deal.expectedROI}%
-                      </p>
-                    </div>
+          <p className="text-sm font-medium text-white mt-1">
+            {deal.riskLevel}
+          </p>
+        </div>
 
-                    <div>
-                      <p className="text-xs text-slate-500">
-                        Investment
-                      </p>
+        <div>
+          <p className="text-xs text-slate-500">
+            Stage
+          </p>
 
-                      <p className="text-sm font-medium text-white mt-1">
-                        ₹{deal.minimumInvestment}L
-                      </p>
-                    </div>
+          <p className="text-sm font-medium text-white mt-1">
+            {deal.fundingStage}
+          </p>
+        </div>
 
-                    <div>
-                      <p className="text-xs text-slate-500">
-                        Risk
-                      </p>
+      </div>
 
-                      <p className="text-sm font-medium text-white mt-1">
-                        {deal.riskLevel}
-                      </p>
-                    </div>
-
-                    <div>
-                      <p className="text-xs text-slate-500">
-                        Stage
-                      </p>
-
-                      <p className="text-sm font-medium text-white mt-1">
-                        {deal.fundingStage}
-                      </p>
-                    </div>
-
-                  </div>
-
-                </div>
-
-              </div>
-
-            ))}
+    </div>
+  </Link>
+))}
 
           </div>
 
