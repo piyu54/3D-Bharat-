@@ -23,7 +23,7 @@ export default function Home() {
         <div className="mb-8">
 
           <p className="text-sm text-cyan-400 mb-2">
-            Friday, August 21, 2026
+            Saturday, August 22, 2026
           </p>
 
           <h1 className="text-3xl lg:text-4xl font-semibold tracking-tight">
